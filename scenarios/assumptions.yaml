@@ -1,0 +1,51 @@
+# Shared assumptions. Every option is discounted at the same rate, over the
+# same horizon, so the comparison is about the options and not about the maths.
+#
+# These are illustrative figures for a mid-size financial services firm with
+# roughly 40 data-consuming teams. They are not any employer's numbers.
+
+horizon_years: 7               # platform decisions outlive a 5-year window
+depreciation_years: 5          # straight line, shorter than the horizon
+
+# The do-nothing baseline every option is measured against: keep the current
+# warehouse running as-is. An option that retires it books that spend as an
+# avoided cost, which is the single largest benefit line and the one most
+# often left out of a platform business case.
+baseline:
+  legacy_platform_annual_cost: 1_350_000
+
+capital_structure:
+  risk_free_rate: 0.040        # 5-year Government of Canada
+  equity_risk_premium: 0.055
+  beta: 1.15                   # levered beta, financial services comparables
+  cost_of_debt: 0.060
+  debt_weight: 0.30
+  tax_rate: 0.265              # Ontario combined federal and provincial
+
+# Unit economics used across every option, so a benefit cannot be
+# inflated in one scenario by quietly repricing an hour.
+unit_costs:
+  fully_loaded_engineer_hourly: 118.0
+  analyst_hourly: 82.0
+  bi_licence_annual: 4_800.0
+  major_incident: 26_000.0
+
+# The futures the decision tree weighs. Probabilities must sum to 1.
+decision_tree:
+  - name: Adoption lands as planned
+    probability: 0.35
+    adoption_ceiling: 0.82
+  - name: Adoption is partial, two domains hold out
+    probability: 0.45
+    adoption_ceiling: 0.58
+  - name: Adoption stalls after the pilot
+    probability: 0.20
+    adoption_ceiling: 0.30
+
+# Three-point estimates for the simulation, as (low, mode, high).
+simulation:
+  trials: 5000
+  seed: 20260916
+  adoption_ceiling: [0.30, 0.65, 0.88]
+  benefit_realization: [0.70, 0.95, 1.10]
+  cost_overrun: [0.95, 1.08, 1.45]

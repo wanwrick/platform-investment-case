@@ -1,0 +1,34 @@
+key: extend
+name: Extend the existing warehouse
+thesis: >
+  Keep the warehouse and buy more of it. Cheapest to start and nothing to
+  migrate, but compute cost compounds and the capability ceiling is real:
+  streaming and ML stay out of reach.
+
+capability_ceiling: 0.55
+switching_cost: 90_000
+lock_in_note: >
+  Proprietary storage. A later move pays the migration this option avoided,
+  at a larger data volume.
+
+costs:
+  # Incremental over the baseline, not total. The warehouse already runs;
+  # this is the extra capacity and the extra people to drive it.
+  upfront_capex: 180_000
+  upfront_opex: 60_000
+  annual_platform_cost: 290_000
+  annual_platform_cost_growth: 0.18   # the compounding that kills this option
+  annual_run_team_cost: 180_000
+  migration_cost_per_year: []
+
+adoption:
+  ceiling: 0.62                 # familiar, so uptake is quick and then flat
+  midpoint_year: 1.1
+  steepness: 2.4
+
+benefits:
+  engineering_hours_saved: 5_200
+  licences_decommissioned: 26
+  incidents_avoided: 7
+  analyst_hours_saved: 8_400
+  legacy_run_cost_avoided: 0           # this option is the legacy platform

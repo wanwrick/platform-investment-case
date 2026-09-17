@@ -1,0 +1,32 @@
+key: buy
+name: Buy the managed vendor platform
+thesis: >
+  Take the vendor's managed platform. Fastest to value and the smallest run
+  team, paid for with a subscription that scales with usage and a switching
+  cost that grows every year we stay.
+
+capability_ceiling: 0.78
+switching_cost: 740_000
+lock_in_note: >
+  Proprietary semantic layer and pipeline definitions. The switching cost is
+  the real price of this option and it is not in the subscription line.
+
+costs:
+  upfront_capex: 240_000
+  upfront_opex: 310_000
+  annual_platform_cost: 1_040_000
+  annual_platform_cost_growth: 0.09
+  annual_run_team_cost: 290_000       # the vendor runs most of it
+  migration_cost_per_year: [280_000, 120_000]
+
+adoption:
+  ceiling: 0.72
+  midpoint_year: 1.5
+  steepness: 2.0
+
+benefits:
+  engineering_hours_saved: 7_900
+  licences_decommissioned: 52
+  incidents_avoided: 11
+  analyst_hours_saved: 9_400
+  legacy_run_cost_avoided: 1_150_000   # retires most of the warehouse
