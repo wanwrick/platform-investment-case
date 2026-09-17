@@ -1,0 +1,31 @@
+key: build
+name: Build the lakehouse
+thesis: >
+  Move onto a governed lakehouse and run it ourselves. Highest cost to get
+  there, lowest cost to run, and the only option that can serve the streaming
+  and ML use cases the warehouse cannot reach.
+
+capability_ceiling: 0.95
+switching_cost: 320_000
+lock_in_note: >
+  Open table format. Leaving means moving compute, not re-modelling the data.
+
+costs:
+  upfront_capex: 1_150_000      # platform build, capitalized
+  upfront_opex: 380_000         # design, vendor selection, re-skilling
+  annual_platform_cost: 540_000
+  annual_platform_cost_growth: 0.06
+  annual_run_team_cost: 620_000
+  migration_cost_per_year: [420_000, 260_000, 90_000]
+
+adoption:
+  ceiling: 0.80
+  midpoint_year: 2.2
+  steepness: 1.6
+
+benefits:                       # per year at full adoption, before ramp
+  engineering_hours_saved: 9_600
+  licences_decommissioned: 70
+  incidents_avoided: 14
+  analyst_hours_saved: 11_200
+  legacy_run_cost_avoided: 1_250_000   # retires almost all of the warehouse
