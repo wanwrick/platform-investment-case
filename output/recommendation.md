@@ -1,12 +1,12 @@
 # Platform investment: build, extend, or buy
 
-*Generated 2026-09-16 from the scenarios directory. 7-year horizon, discounted at 8.55% WACC.*
+*Generated 2026-09-24 from the scenarios directory. 7-year horizon, discounted at 8.55% WACC.*
 
 ## Recommendation
 
 **Extend the existing warehouse, unless adoption can be committed in advance.** Build the lakehouse shows the higher NPV at $1.96M against $353K, and that gap is real. It is also the option least likely to collect it.
 
-The point estimate assumes Build the lakehouse reaches its planned adoption. Weighted across the futures we actually think are likely it returns -$71K with a 65% chance of a loss, against $79K and 20% for Extend the existing warehouse. In simulation it is the better option in 21% of trials.
+The point estimate assumes Build the lakehouse reaches its planned adoption. Weighted across the futures we treat as likely, it returns -$71K with a 65% chance of a loss. Extend the existing warehouse returns $79K with 20%. In simulation it is the better option in 21% of trials.
 
 **The decision turns on one number.** Build the lakehouse is worth more than Extend the existing warehouse above **65% adoption** and worth less below it. Today that number is a forecast. Convert it into a commitment and the answer changes.
 
@@ -28,7 +28,7 @@ Three paths were modelled over the same horizon, at the same discount rate, on t
 | Buy the managed vendor platform | $625K | 21.9% | 2.14 | 3.8 yrs | 4.4 yrs | $550K | $122K |
 | Extend the existing warehouse | $353K | n/a | 2.47 | 1.9 yrs | 2.1 yrs | $240K | $69K |
 
-NPV ranks by total value created. Profitability index ranks by value per dollar committed, which matters when the options differ in size: Build the lakehouse asks for $1.53M up front and Extend the existing warehouse asks for $240K.
+NPV ranks by total value created. Profitability index ranks by value per dollar committed, which matters when the options differ in size. Build the lakehouse asks for $1.53M up front; Extend the existing warehouse asks for $240K.
 
 ## Complication: the ranking is an adoption bet
 
@@ -64,13 +64,13 @@ Adoption, benefit realization, and cost overrun are sampled together, on a share
 
 ## Resolution
 
-Approve **Extend the existing warehouse** now. Hold Build the lakehouse open as a staged decision rather than rejecting it, because the one thing that makes it the better answer is something we can go and build.
+Approve **Extend the existing warehouse** now. Hold Build the lakehouse open as a staged decision rather than rejecting it. The one thing that makes it the better answer is something we can go and build.
 
 **The staged version**
 
 1. Spend two quarters turning adoption from a forecast into signed commitments. Build the lakehouse needs 61% of teams to clear its cost of capital and 65% to beat Extend the existing warehouse.
 2. If committed adoption clears 65% at the gate, switch to Build the lakehouse. The upside is $1.61M over the horizon, which is worth two quarters of waiting for.
-3. If it does not clear, Extend the existing warehouse was the right call and $1.53M was not committed to a migration nobody had asked for.
+3. If it does not clear, Extend the existing warehouse was the right call. $1.53M stays uncommitted to a migration nobody asked for.
 
 **What has to be true**
 
@@ -81,7 +81,7 @@ Approve **Extend the existing warehouse** now. Hold Build the lakehouse open as 
 **What would change the answer**
 
 - Signed adoption above 65% at the two-quarter gate. That is the trigger, and it belongs in the approval rather than in a footnote.
-- A streaming or ML requirement landing inside the horizon. Extend the existing warehouse cannot serve it at any adoption level, and a capability gap never shows up in an NPV table until it is too late to act on.
+- A streaming or ML requirement landing inside the horizon. Extend the existing warehouse cannot serve it at any adoption level. A capability gap never shows up in an NPV table until it is too late to act on.
 - Switching cost of $90K. Proprietary storage. A later move pays the migration this option avoided, at a larger data volume.
 
 **Next three actions**
@@ -94,7 +94,7 @@ Approve **Extend the existing warehouse** now. Hold Build the lakehouse open as 
 
 ## Method
 
-Discount rate is WACC at 8.55%, built from CAPM: cost of equity 10.33% at a beta of 1.15, cost of debt 6.0% tax-shielded at 26.5%, on 30% debt.
+Discount rate is WACC at 8.55%, built from CAPM. Cost of equity is 10.33% at a beta of 1.15. Cost of debt is 6.0%, tax-shielded at 26.5%, on 30% debt.
 
 Free cash flow is NOPAT plus depreciation less capex. Depreciation is removed from the tax base and added back, because it shields tax without being a cash cost.
 

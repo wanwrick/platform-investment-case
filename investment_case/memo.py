@@ -86,11 +86,11 @@ def render(
             f"option least likely to collect it.")
         add("")
         add(f"The point estimate assumes {winner.option.name} reaches its planned "
-            f"adoption. Weighted across the futures we actually think are likely it "
-            f"returns {money(trees[winner.option.key].expected_npv)} with a "
-            f"{pct(trees[winner.option.key].probability_of_loss, 0)} chance of a loss, "
-            f"against {money(tree_winner.expected_npv)} and "
-            f"{pct(tree_winner.probability_of_loss, 0)} for {recommended.name}. "
+            f"adoption. Weighted across the futures we treat as likely, it returns "
+            f"{money(trees[winner.option.key].expected_npv)} with a "
+            f"{pct(trees[winner.option.key].probability_of_loss, 0)} chance of a loss. "
+            f"{recommended.name} returns {money(tree_winner.expected_npv)} with "
+            f"{pct(tree_winner.probability_of_loss, 0)}. "
             f"In simulation it is the better option in "
             f"{pct(win_rates[winner.option.key], 0)} of trials.")
         add("")
@@ -136,9 +136,9 @@ def render(
         )
     add("")
     add(f"NPV ranks by total value created. Profitability index ranks by value per "
-        f"dollar committed, which matters when the options differ in size: "
-        f"{ranked[0].option.name} asks for {money(ranked[0].total_investment)} up front "
-        f"and {ranked[-1].option.name} asks for {money(ranked[-1].total_investment)}.")
+        f"dollar committed, which matters when the options differ in size. "
+        f"{ranked[0].option.name} asks for {money(ranked[0].total_investment)} up front; "
+        f"{ranked[-1].option.name} asks for {money(ranked[-1].total_investment)}.")
     add("")
 
     # --- Complication ---------------------------------------------------------
@@ -197,8 +197,8 @@ def render(
     add("")
     be = breakevens.get(recommended.key)
     add(f"Approve **{recommended.name}** now. Hold {winner.option.name} open as a "
-        f"staged decision rather than rejecting it, because the one thing that makes "
-        f"it the better answer is something we can go and build.")
+        f"staged decision rather than rejecting it. The one thing that makes it the "
+        f"better answer is something we can go and build.")
     add("")
     add("**The staged version**")
     add("")
@@ -212,8 +212,8 @@ def render(
         add(f"2. If committed adoption clears {pct(crossover, 0)} at the gate, switch to "
             f"{winner.option.name}. The upside is {money(upside)} over the horizon, "
             f"which is worth two quarters of waiting for.")
-        add(f"3. If it does not clear, {recommended.name} was the right call and "
-            f"{money(at_risk)} was not committed to a migration nobody had asked for.")
+        add(f"3. If it does not clear, {recommended.name} was the right call. "
+            f"{money(at_risk)} stays uncommitted to a migration nobody asked for.")
     add("")
     add("**What has to be true**")
     add("")
@@ -233,7 +233,7 @@ def render(
         f"at the two-quarter gate. That is the trigger, and it belongs in the approval "
         f"rather than in a footnote.")
     add(f"- A streaming or ML requirement landing inside the horizon. "
-        f"{recommended.name} cannot serve it at any adoption level, and a capability "
+        f"{recommended.name} cannot serve it at any adoption level. A capability "
         f"gap never shows up in an NPV table until it is too late to act on.")
     if recommended.lock_in_note:
         add(f"- Switching cost of {money(recommended.switching_cost)}. "
@@ -255,9 +255,9 @@ def render(
     add("## Method")
     add("")
     cs = assumptions.capital_structure
-    add(f"Discount rate is WACC at {pct(rate, 2)}, built from CAPM: "
-        f"cost of equity {pct(cs.risk_free_rate + cs.beta * cs.equity_risk_premium, 2)} "
-        f"at a beta of {cs.beta}, cost of debt {pct(cs.cost_of_debt, 1)} "
+    add(f"Discount rate is WACC at {pct(rate, 2)}, built from CAPM. "
+        f"Cost of equity is {pct(cs.risk_free_rate + cs.beta * cs.equity_risk_premium, 2)} "
+        f"at a beta of {cs.beta}. Cost of debt is {pct(cs.cost_of_debt, 1)}, "
         f"tax-shielded at {pct(cs.tax_rate, 1)}, on {pct(cs.debt_weight, 0)} debt.")
     add("")
     add("Free cash flow is NOPAT plus depreciation less capex. Depreciation is "
