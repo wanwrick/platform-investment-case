@@ -333,3 +333,21 @@ def test_memo_contains_no_em_dash(loaded):
         {k: breakeven_adoption(o, assumptions) for k, o in options.items()},
     )
     assert "—" not in memo
+
+
+def test_depreciation_longer_than_the_horizon_is_refused():
+    """Otherwise the unbooked tail silently drops part of the tax shield."""
+    from investment_case.finance import CapitalStructure
+    from investment_case.model import Assumptions
+
+    structure = CapitalStructure(0.04, 0.055, 1.15, 0.06, 0.30, 0.265)
+    with pytest.raises(ValueError, match="exceeds"):
+        Assumptions(horizon_years=5, capital_structure=structure, depreciation_years=7)
+
+
+def test_memo_renders_when_an_option_has_no_upfront_outlay():
+    """profitability_index is None with no outlay; the memo must not crash on it."""
+    from investment_case.memo import pi_text
+
+    assert pi_text(None) == "n/a"
+    assert pi_text(1.2345) == "1.23"

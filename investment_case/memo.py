@@ -30,6 +30,11 @@ def years(value: float | None) -> str:
     return "never" if value is None else f"{value:.1f} yrs"
 
 
+def pi_text(value: float | None) -> str:
+    """PI is undefined when there is no upfront outlay to divide by."""
+    return "n/a" if value is None else f"{value:.2f}"
+
+
 def render(
     ranked: list[OptionResult],
     assumptions: Assumptions,
@@ -125,7 +130,7 @@ def render(
     for result in ranked:
         add(
             f"| {result.option.name} | {money(result.npv)} | {pct(result.irr)} "
-            f"| {result.profitability_index:.2f} | {years(result.payback)} "
+            f"| {pi_text(result.profitability_index)} | {years(result.payback)} "
             f"| {years(result.discounted_payback)} | {money(result.total_investment)} "
             f"| {money(result.equivalent_annual_value)} |"
         )

@@ -122,6 +122,15 @@ class Assumptions:
     capital_structure: CapitalStructure
     depreciation_years: int
 
+    def __post_init__(self) -> None:
+        # Depreciation past the horizon is never booked, which silently drops
+        # part of the tax shield from every option. Refuse rather than mis-state.
+        if self.depreciation_years > self.horizon_years:
+            raise ValueError(
+                f"depreciation_years ({self.depreciation_years}) exceeds "
+                f"horizon_years ({self.horizon_years}); the tail would never be expensed"
+            )
+
     @property
     def discount_rate(self) -> float:
         return wacc(self.capital_structure)
