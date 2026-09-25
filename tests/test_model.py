@@ -8,6 +8,8 @@ build and not the run.
 
 from __future__ import annotations
 
+from dataclasses import replace
+
 import pytest
 
 from investment_case.loader import (
@@ -335,19 +337,33 @@ def test_memo_contains_no_em_dash(loaded):
     assert "—" not in memo
 
 
-def test_depreciation_longer_than_the_horizon_is_refused():
+def test_depreciation_longer_than_the_horizon_is_refused(loaded):
     """Otherwise the unbooked tail silently drops part of the tax shield."""
-    from investment_case.finance import CapitalStructure
-    from investment_case.model import Assumptions
-
-    structure = CapitalStructure(0.04, 0.055, 1.15, 0.06, 0.30, 0.265)
+    assumptions, _, _ = loaded
     with pytest.raises(ValueError, match="exceeds"):
-        Assumptions(horizon_years=5, capital_structure=structure, depreciation_years=7)
+        replace(assumptions, depreciation_years=assumptions.horizon_years + 1)
 
 
-def test_memo_renders_when_an_option_has_no_upfront_outlay():
-    """profitability_index is None with no outlay; the memo must not crash on it."""
-    from investment_case.memo import pi_text
-
-    assert pi_text(None) == "n/a"
-    assert pi_text(1.2345) == "1.23"
+def test_memo_renders_when_an_option_has_no_upfront_outlay(loaded):
+    """profitability_index is None with no outlay; the table shows n/a, not a crash."""
+    assumptions, options, _ = loaded
+    free = options["extend"]
+    free = replace(free, costs=replace(free.costs, upfront_capex=0.0, upfront_opex=0.0))
+    options = {**options, "extend": free}
+    ranked = rank(build_schedule(o, assumptions) for o in options.values())
+    branches = load_branches()
+    trees = {k: decision_tree(o, assumptions, branches) for k, o in options.items()}
+    config = {**load_simulation_config(), "trials": 100}
+    sims = {k: monte_carlo(o, assumptions, **config) for k, o in options.items()}
+    memo = render(
+        ranked,
+        assumptions,
+        trees,
+        sims,
+        probability_option_wins(sims),
+        {k: breakeven_adoption(o, assumptions) for k, o in options.items()},
+    )
+    row = next(
+        line for line in memo.splitlines() if line.startswith(f"| {free.name} |")
+    )
+    assert "| n/a |" in row
